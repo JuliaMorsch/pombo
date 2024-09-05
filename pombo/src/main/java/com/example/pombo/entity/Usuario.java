@@ -1,9 +1,15 @@
 package com.example.pombo.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -17,4 +23,9 @@ public class Usuario {
     private String nome;
     private String email;
     private String cpf;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "coleção", 
+        cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Postagem> postagem;
 }
