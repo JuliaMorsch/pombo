@@ -25,7 +25,9 @@ public class Usuario {
     private String cpf;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "usuario", 
-        cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Postagem> postagem;
+    @OneToMany(mappedBy = "usuario",    
+        cascade = CascadeType.ALL,orphanRemoval = true)
+    private List<Mensagem> mensagem;
+
+
 }
