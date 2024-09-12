@@ -1,12 +1,15 @@
 package com.example.pombo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pombo.entity.Usuario;
+import com.example.pombo.exception.PomboException;
 import com.example.pombo.service.UsuarioService;
 
 @RestController
@@ -21,4 +24,11 @@ public class UsuarioController {
         Usuario usuarioSalvo = usuarioService.save(usuario);
         return usuarioSalvo;
     }
+
+    @GetMapping(path = "/{id}")
+    public Usuario findById(@PathVariable Long id) throws PomboException{
+        Usuario usuario = usuarioService.findById(id);
+        return usuario;
+    }
 }
+
