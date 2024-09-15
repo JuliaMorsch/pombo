@@ -28,4 +28,12 @@ public class UsuarioService {
     public List<Usuario> findAll(){ 
         return usuarioRepository.findAll();
     }
+
+    public Usuario update(Usuario usuario) {
+        return usuarioRepository.save(usuario);
+    }
+
+    public void deleteById(Long id) {
+        usuarioRepository.deleteById(id);
+    }
 }
