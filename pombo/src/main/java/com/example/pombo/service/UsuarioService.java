@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.pombo.entity.Usuario;
 import com.example.pombo.exception.PomboException;
+import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.repository.UsuarioRepository;
+
 
 @Service
 public class UsuarioService {
@@ -16,12 +16,11 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
     public Usuario save(Usuario usuario) {
-        Usuario usuarioSalvo = usuarioRepository.save(usuario);
-        return usuarioSalvo;
+        return usuarioRepository.save(usuario);
     }
 
-    public Usuario findById(Long id) throws PomboException {
-        return usuarioRepository.findById(id).orElseThrow(() -> new PomboException("Usuário não encontrado."));
+    public Usuario findByUsuario(String usuarioId) throws PomboException {
+        return usuarioRepository.findById(usuarioId).orElseThrow(() -> new PomboException("Usuário não encontrado."));
     
     }
 
@@ -29,11 +28,11 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public Usuario update(Usuario usuario) {
+    public Usuario atualizar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         usuarioRepository.deleteById(id);
     }
 }
