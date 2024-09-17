@@ -1,16 +1,18 @@
 package com.example.pombo.model.filtro;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.data.jpa.domain.Specification;
+
 import com.example.pombo.model.entity.Denuncia;
+
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
 import lombok.Data;
-import org.springframework.data.jpa.domain.Specification;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class DenunciaFiltro extends BaseFiltro implements Specification<Denuncia> {
