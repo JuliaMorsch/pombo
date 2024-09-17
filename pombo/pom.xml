@@ -38,6 +38,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
+		
+	     <!-- Swagger com OpenAPI  
+	     	acessar via :  http://localhost:8080/swagger-ui.html
+	     -->
 		<dependency>
 		   <groupId>org.springdoc</groupId>
 		   <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
