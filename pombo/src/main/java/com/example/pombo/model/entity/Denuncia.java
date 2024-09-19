@@ -3,7 +3,6 @@ package com.example.pombo.model.entity;
 import java.time.LocalDate;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.ManyToAny;
 
 import com.example.pombo.model.enums.MotivoDenuncia;
 
@@ -12,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import lombok.Data;
 
@@ -22,12 +22,12 @@ public class Denuncia {
     @EmbeddedId
     private DenunciaPK id;
 
-    @ManyToAny
+    @ManyToOne
     @MapsId("idMensagem")
     @JoinColumn(name = "id_mensagem")
     private Mensagem mensagem;
     
-    @ManyToAny
+    @ManyToOne
     @MapsId("idUsuario")
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
