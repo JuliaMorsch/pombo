@@ -51,11 +51,11 @@ public class DenunciaController {
         return ResponseEntity.ok(denuncia);
     }
 
-    @Operation(summary = "Pesquisar Denúncia por ID", 
+    @Operation(summary = "Pesquisar Denúncia por usuário e mensagem", 
     description = "Busca uma Denúncia específica pelo seu ID.")
-    @GetMapping(path = "/{id}")
-    public Denuncia buscar(@PathVariable String id) {
-        return denunciaService.buscar(id);
+    @GetMapping(path = "/{idMensagem}/{idUsuario}")
+    public Denuncia buscar(@PathVariable String idMensagem, @PathVariable String idUsuario) {
+        return denunciaService.buscar(idMensagem, idUsuario);
     }
 
     @Operation(summary = "Listar todos as Denúncias", 
