@@ -28,7 +28,7 @@ public class DenunciaService {
     private UsuarioRepository usuarioRepository;
 
     public Denuncia denunciarMensagem(String idMensagem, String idUsuario, MotivoDenuncia motivo) {
-        Mensagem mensagem = this.mensagemRepository.findById(idUsuario).get();
+        Mensagem mensagem = this.mensagemRepository.findById(idMensagem).get();
         Usuario usuario = this.usuarioRepository.findById(idUsuario).get();
 
         DenunciaPK denunciaPK = new DenunciaPK();
@@ -59,7 +59,11 @@ public class DenunciaService {
         return denunciaRepository.findAll(filtros);
     }
 
-    public Denuncia buscar(String id) {
-        return denunciaRepository.findById(id).get();
+    public Denuncia buscar(String idMensagem, String idUsuario) {
+        DenunciaPK pk = new DenunciaPK();
+        pk.setIdMensagem(idMensagem);
+        pk.setIdUsuario(idUsuario);
+
+        return denunciaRepository.findById(pk).get();
     }
 }
