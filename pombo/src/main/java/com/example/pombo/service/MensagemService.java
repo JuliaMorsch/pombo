@@ -17,22 +17,22 @@ public class MensagemService {
     @Autowired
     private MensagemRepository mensagemRepository;
 
-    public MensagemRelatorioDTO gerarRelatorio(Mensagem mensagem) throws PomboException {
-        MensagemRelatorioDTO dto = new MensagemRelatorioDTO();
-        dto.setIdMensagem(mensagem.getId());
-        dto.setUuidUsuario(mensagem.getUsuario().getId());
-        dto.setNomeUsuario(mensagem.getUsuario().getNome());
-        dto.setQtdeCurtidas(mensagem.getLikes());
-        dto.setQtdeDenuncias(mensagem.getDenuncias().size());
+     public MensagemRelatorioDTO gerarRelatorio(Mensagem mensagem) throws PomboException {
+         MensagemRelatorioDTO dto = new MensagemRelatorioDTO();
+         dto.setIdMensagem(mensagem.getId());
+         dto.setUuidUsuario(mensagem.getUsuario().getId());
+         dto.setNomeUsuario(mensagem.getUsuario().getNome());
+         dto.setQtdeCurtidas(mensagem.getLikes());
+         dto.setQtdeDenuncias(mensagem.getDenuncias().size());
 
-        if (mensagem.isBloqueado() == true) {
-            dto.setTextoOuStatus("Bloqueado pelo administrador");
-        } else {
-            dto.setTextoOuStatus(mensagem.getTexto());
-        }
+         if (mensagem.isBloqueado() == true) {
+             dto.setTextoOuStatus("Bloqueado pelo administrador");
+         } else {
+             dto.setTextoOuStatus(mensagem.getTexto());
+         }
 
-        return dto;
-    }
+         return dto;
+     }
 
     public Mensagem save(Mensagem mensagem) throws PomboException{
         return mensagemRepository.save(mensagem);
