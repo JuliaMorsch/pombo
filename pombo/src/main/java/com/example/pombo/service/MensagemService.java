@@ -51,6 +51,10 @@ public class MensagemService {
         return mensagemRepository.findByUsuario(usuario);
     }
 
+    // public void usuariosQueCurtiram(String mensagemId, String idUsuario){
+    //     Usuario usuarioCurtiu = darLike(mensagemId);
+    // }
+
     public void darLike(String mensagemId) throws PomboException {
         Mensagem mensagem = buscar(mensagemId);
         if (mensagem != null) {
