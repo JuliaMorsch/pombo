@@ -1,6 +1,7 @@
 package com.example.pombo.service;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,10 +51,12 @@ public class MensagemService {
         return mensagemRepository.findByUsuario(usuario);
     }
 
-    public void darLike(String mensagemId) {
-        Mensagem mensagem = mensagemRepository.findById(mensagemId).orElseThrow(() -> new RuntimeException("Mensagem não encontrada."));
-        mensagem.setLikes(mensagem.getLikes() + 1);
-        mensagemRepository.save(mensagem);
+    public void darLike(String mensagemId) throws PomboException {
+        Mensagem mensagem = buscar(mensagemId);
+        if (mensagem != null) {
+            mensagem.setLikes(mensagem.getUsuariosCurtiram().size());
+        }
+        save(mensagem);
     }
 
     public void bloquearMensagem(String mensagemId) {
