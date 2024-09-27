@@ -1,5 +1,8 @@
 package com.example.pombo.model.dto;
 
+import lombok.Data;
+
+@Data
 public class DenunciaRelatorioDTO {
 
     private String idUsuario;
