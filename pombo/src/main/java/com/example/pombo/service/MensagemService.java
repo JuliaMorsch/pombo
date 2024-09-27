@@ -51,13 +51,18 @@ public class MensagemService {
         return mensagemRepository.findByUsuario(usuario);
     }
 
-    // public void usuariosQueCurtiram(String mensagemId, String idUsuario){
-    //     Usuario usuarioCurtiu = darLike(mensagemId);
-    // }
+    //  public void usuariosQueCurtiram(String mensagemId, String idUsuario){
+    //      Usuario usuarioCurtiu = darLike(mensagemId);
+    //  }
 
-    public void darLike(String mensagemId) throws PomboException {
+    public void darLike(String mensagemId, Usuario usuario) throws PomboException {
         Mensagem mensagem = buscar(mensagemId);
         if (mensagem != null) {
+            if (mensagem.getUsuariosCurtiram().contains(usuario)) {
+                mensagem.getUsuariosCurtiram().remove(usuario); // Descurtir mensagem
+            } else {
+                mensagem.getUsuariosCurtiram().add(usuario); // Curtir mensagem
+            }
             mensagem.setLikes(mensagem.getUsuariosCurtiram().size());
         }
         save(mensagem);
