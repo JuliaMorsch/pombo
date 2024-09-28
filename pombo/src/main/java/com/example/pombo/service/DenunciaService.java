@@ -1,5 +1,6 @@
 package com.example.pombo.service;
 
+import com.example.pombo.model.dto.DenunciaRelatorioDTO;
 import com.example.pombo.model.entity.Denuncia;
 import com.example.pombo.model.entity.DenunciaPK;
 import com.example.pombo.model.entity.Mensagem;
@@ -26,6 +27,20 @@ public class DenunciaService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+     public DenunciaRelatorioDTO gerarRelatorio(Denuncia denuncia, Mensagem mensagem) {
+         DenunciaRelatorioDTO dto = new DenunciaRelatorioDTO();
+         dto.setIdMensagem(denuncia.getMensagem().getId());
+         dto.setQntdDenuncias(mensagem.getDenuncias().size());
+      
+         if (denuncia.isAnalisado() == false) {
+            dto.setQntdDenunciasPendentes(dto.getQntdDenunciasPendentes() + 1);
+         } else {
+            dto.setQntdDenunciasAnalisadas(dto.getQntdDenunciasAnalisadas() + 1);
+         }
+            return dto;
+         }
+     
 
     public Denuncia denunciarMensagem(String idMensagem, String idUsuario, MotivoDenuncia motivo) {
         Mensagem mensagem = this.mensagemRepository.findById(idUsuario).get();
