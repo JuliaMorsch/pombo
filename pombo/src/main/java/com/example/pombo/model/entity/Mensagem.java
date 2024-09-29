@@ -42,6 +42,7 @@ public class Mensagem {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
+    // Tratativa para evitar mais de uma denuncia por usuário
     @OneToMany(mappedBy = "mensagem")
     private List<Denuncia> denuncias;
 
