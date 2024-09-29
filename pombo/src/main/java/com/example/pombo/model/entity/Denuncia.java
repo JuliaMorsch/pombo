@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.example.pombo.model.enums.MotivoDenuncia;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -22,6 +23,7 @@ public class Denuncia {
     @EmbeddedId
     private DenunciaPK id;
 
+    @JsonBackReference
     @ManyToOne
     @MapsId("idMensagem")
     @JoinColumn(name = "id_mensagem")
