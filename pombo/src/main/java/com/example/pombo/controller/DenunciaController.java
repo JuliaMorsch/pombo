@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pombo.model.dto.DenunciaRelatorioDTO;
 import com.example.pombo.model.entity.Denuncia;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.model.enums.MotivoDenuncia;
@@ -30,6 +31,12 @@ public class DenunciaController {
 
     @Autowired
     private DenunciaService denunciaService;
+
+    @PostMapping("/relatorioDenuncia/{idMensagem}")
+    public ResponseEntity<DenunciaRelatorioDTO> gerarRelatorio(@PathVariable String idMensagem) {
+        DenunciaRelatorioDTO relatorioDTO = denunciaService.gerarRelatorio(idMensagem);
+        return ResponseEntity.ok(relatorioDTO);
+    }
 
     @Operation(summary = "Criar Denúncia", description = "Criar uma Denúncia referenciando usuário e mensagem.", responses = {
             @ApiResponse(responseCode = "200", description = "Denúncia criada com sucesso.",
