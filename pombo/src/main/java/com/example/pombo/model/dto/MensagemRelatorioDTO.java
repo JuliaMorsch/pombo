@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class MensagemRelatorioDTO {
-    private String idMensagem;
     private String textoOuStatus;
     private int qtdeCurtidas;
     private String nomeUsuario;
