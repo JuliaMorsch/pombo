@@ -3,6 +3,7 @@ package com.example.pombo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -60,9 +61,14 @@ public class DenunciaController {
 
     @Operation(summary = "Pesquisar Denúncia por ID", 
     description = "Busca uma Denúncia específica pelo seu ID.")
-    @GetMapping(path = "/{id}")
-    public Denuncia buscar(@PathVariable String id) {
-        return denunciaService.buscar(id);
+    @GetMapping(path = "/{idMensagem}/{idUsuario}")
+    public ResponseEntity<Denuncia> buscar(@PathVariable String idMensagem, @PathVariable String idUsuario) {
+        try {
+            Denuncia denuncia = denunciaService.buscar(idMensagem, idUsuario);
+            return ResponseEntity.ok(denuncia);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @Operation(summary = "Listar todos as Denúncias", 
