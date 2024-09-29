@@ -10,6 +10,9 @@ import com.example.pombo.model.filtro.DenunciaFiltro;
 import com.example.pombo.repository.DenunciaRepository;
 import com.example.pombo.repository.MensagemRepository;
 import com.example.pombo.repository.UsuarioRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,18 +31,30 @@ public class DenunciaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-     public DenunciaRelatorioDTO gerarRelatorio(Denuncia denuncia, Mensagem mensagem) {
-         DenunciaRelatorioDTO dto = new DenunciaRelatorioDTO();
-         dto.setIdMensagem(denuncia.getMensagem().getId());
-         dto.setQntdDenuncias(mensagem.getDenuncias().size());
-      
-         if (denuncia.isAnalisado() == false) {
-            dto.setQntdDenunciasPendentes(dto.getQntdDenunciasPendentes() + 1);
-         } else {
-            dto.setQntdDenunciasAnalisadas(dto.getQntdDenunciasAnalisadas() + 1);
-         }
-            return dto;
-         }
+    public DenunciaRelatorioDTO gerarRelatorio(String idMensagem) {
+        Mensagem mensagem = mensagemRepository.findById(idMensagem).orElseThrow(() -> new EntityNotFoundException("Mensagem não encontrada."));
+        DenunciaRelatorioDTO dto = new DenunciaRelatorioDTO();
+        dto.setIdMensagem(mensagem.getId());
+        
+        List<Denuncia> denuncias = mensagem.getDenuncias();
+
+        int QntdDenunciasPendentes = 0;
+        int QntdDenunciasAnalisadas = 0;
+        if (denuncias != null && !denuncias.isEmpty()) {
+            for (Denuncia denuncia : denuncias) {
+                if (denuncia.isAnalisado()) {
+                    QntdDenunciasAnalisadas++;
+                } else {
+                    QntdDenunciasPendentes++;
+                }
+            }
+        } 
+        dto.setQntdDenuncias(denuncias.size());
+        dto.setQntdDenunciasAnalisadas(QntdDenunciasAnalisadas);
+        dto.setQntdDenunciasPendentes(QntdDenunciasPendentes);
+        
+        return dto;
+        }
      
 
     public Denuncia denunciarMensagem(String idMensagem, String idUsuario, MotivoDenuncia motivo) {
