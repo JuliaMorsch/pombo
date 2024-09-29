@@ -58,20 +58,23 @@ public class DenunciaService {
      
 
     public Denuncia denunciarMensagem(String idMensagem, String idUsuario, MotivoDenuncia motivo) {
-        Mensagem mensagem = this.mensagemRepository.findById(idUsuario).get();
+        Mensagem mensagem = this.mensagemRepository.findById(idMensagem).get();
         Usuario usuario = this.usuarioRepository.findById(idUsuario).get();
-
         DenunciaPK denunciaPK = new DenunciaPK();
         denunciaPK.setIdMensagem(idMensagem);
         denunciaPK.setIdUsuario(idUsuario);
 
-        Denuncia denuncia = new Denuncia();
-        denuncia.setId(denunciaPK);
-        denuncia.setMensagem(mensagem);
-        denuncia.setUsuario(usuario);
-        denuncia.setMotivo(motivo);
-        denuncia.setAnalisado(false);
-        return denunciaRepository.save(denuncia);
+        if (denunciaRepository.existsById(denunciaPK)) {
+            throw new RuntimeException("Usuário já denunciou essa mensagem.");
+        } else {
+            Denuncia denuncia = new Denuncia();
+            denuncia.setId(denunciaPK);
+            denuncia.setMensagem(mensagem);
+            denuncia.setUsuario(usuario);
+            denuncia.setMotivo(motivo);
+            denuncia.setAnalisado(false);
+            return denunciaRepository.save(denuncia);
+        }
     }
 
     public List<Denuncia> listar() {
@@ -89,7 +92,11 @@ public class DenunciaService {
         return denunciaRepository.findAll(filtros);
     }
 
-    public Denuncia buscar(String id) {
-        return denunciaRepository.findById(id).get();
+    public Denuncia buscar(String idMensagem, String idUsuario) {
+        DenunciaPK denunciaPK = new DenunciaPK();
+        denunciaPK.setIdMensagem(idMensagem);
+        denunciaPK.setIdUsuario(idUsuario);
+
+        return denunciaRepository.findById(denunciaPK).orElseThrow(() -> new EntityNotFoundException("Denúncia não encontrada."));
     }
 }
