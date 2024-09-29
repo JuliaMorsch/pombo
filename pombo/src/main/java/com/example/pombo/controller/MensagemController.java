@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pombo.exception.PomboException;
+import com.example.pombo.model.dto.MensagemRelatorioDTO;
 import com.example.pombo.model.entity.Mensagem;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.service.MensagemService;
-import com.example.pombo.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -33,8 +33,12 @@ public class MensagemController {
     @Autowired
     private MensagemService mensagemService;
 
-    @Autowired
-    private UsuarioService usuarioService;
+    @PostMapping("/relatorioMensagem/{idMensagem}")
+    public ResponseEntity<MensagemRelatorioDTO> gerarRelatorio(@PathVariable String idMensagem) throws PomboException {
+        Mensagem mensagem = mensagemService.buscar(idMensagem);
+        MensagemRelatorioDTO dto = mensagemService.gerarRelatorio(mensagem);
+        return ResponseEntity.ok(dto);
+    }
 
     @Operation(summary = "Salvar Mensagem", description = "Adicionar uma nova Mensagem.", responses = {
             @ApiResponse(responseCode = "200", description = "Mensagem criado com sucesso.",
