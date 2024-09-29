@@ -19,7 +19,6 @@ public class MensagemService {
 
     public MensagemRelatorioDTO gerarRelatorio(Mensagem mensagem) throws PomboException {
         MensagemRelatorioDTO dto = new MensagemRelatorioDTO();
-        dto.setIdMensagem(mensagem.getId());
         dto.setUuidUsuario(mensagem.getUsuario().getId());
         dto.setNomeUsuario(mensagem.getUsuario().getNome());
         dto.setQtdeCurtidas(mensagem.getLikes());
