@@ -7,5 +7,5 @@ import com.example.pombo.model.entity.Usuario;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, String>{
-    
+    boolean existsByCpf(String cpf);
 }
