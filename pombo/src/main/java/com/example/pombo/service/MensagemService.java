@@ -3,7 +3,6 @@ package com.example.pombo.service;
 import java.util.List;
 import java.util.Set;
 
-import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,14 +29,14 @@ public class MensagemService {
         dto.setQtdeCurtidas(mensagem.getLikes());
         dto.setQtdeDenuncias(mensagem.getDenuncias().size());
 
-         if (mensagem.isBloqueado() == true) {
-             dto.setTextoOuStatus("Bloqueado pelo administrador");
-         } else {
-             dto.setTextoOuStatus(mensagem.getTexto());
-         }
+        if (mensagem.isBloqueado() == true) {
+            dto.setTextoOuStatus("Bloqueado pelo administrador");
+        } else {
+            dto.setTextoOuStatus(mensagem.getTexto());
+        }
 
-         return dto;
-     }
+        return dto;
+    }
 
     public Mensagem save(Mensagem mensagem) throws PomboException {
         Usuario usuario = usuarioRepository.findById(mensagem.getUsuario().getId())
@@ -57,21 +56,23 @@ public class MensagemService {
         return mensagemRepository.findByUsuario(usuario);
     }
 
-    // public Set<Usuario> gerarCurtidasUsuarios(String idMensagem, String
-    // idUsuario) {
-    // Mensagem mensagem = mensagemRepository.findById(idMensagem).orElseThrow(() ->
-    // new RuntimeException("Mensagem não encontrada."));
-    // Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new
-    // RuntimeException("Usuário não encontrado."));
-    // if (mensagem.getUsuariosCurtiram().contains(usuario)) {
-    // mensagem.getUsuariosCurtiram().remove(usuario);
-    // } else {
-    // mensagem.getUsuariosCurtiram().add(usuario);
-    // }
-    // mensagemRepository.save(mensagem);
-    // mensagem.getUsuariosCurtiram().size();
-    // return mensagem.getUsuariosCurtiram();
-    // }
+    public Set<Usuario> curtir(String idMensagem, String idUsuario) throws PomboException {
+        Mensagem mensagem = mensagemRepository.findById(idMensagem)
+                .orElseThrow(() -> new PomboException("Mensagem não encontrada."));
+        Usuario usuario = usuarioRepository.findById(idUsuario)
+                .orElseThrow(() -> new PomboException("Usuário não encontrado."));
+
+        if (mensagem.getUsuariosCurtiram().contains(usuario)) {
+            mensagem.getUsuariosCurtiram().remove(usuario);
+            mensagem.setLikes(mensagem.getLikes() - 1);
+        } else {
+            mensagem.getUsuariosCurtiram().add(usuario);
+            mensagem.setLikes(mensagem.getLikes() + 1);
+        }
+        mensagemRepository.save(mensagem);
+        
+        return mensagem.getUsuariosCurtiram();
+    }
 
     public void bloquearMensagem(String mensagemId) {
         Mensagem mensagem = mensagemRepository.findById(mensagemId)
