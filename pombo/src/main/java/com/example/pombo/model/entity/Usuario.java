@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 
@@ -17,6 +19,8 @@ public class Usuario {
     private String id;
     private String nome;
     private String email;
+    
+    @NotBlank(message = "CPF não pode ser vazio.")
     @CPF    
     private String cpf;
     private boolean isAdmin = false;
