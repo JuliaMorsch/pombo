@@ -1,5 +1,7 @@
 package com.example.pombo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pombo.exception.PomboException;
 import com.example.pombo.model.entity.Usuario;
-import com.example.pombo.model.entity.Mensagem;
 import com.example.pombo.service.UsuarioService;
-import java.util.*;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -45,7 +46,7 @@ public class UsuarioController {
                 examples = @ExampleObject(value = "{\"usuario\": \"Erro de validação: campo X é obrigatório\", \"status\": 400}")))
     })
     @PostMapping
-    public Usuario save(@RequestBody Usuario usuario) {
+    public Usuario save(@Valid @RequestBody Usuario usuario) throws PomboException {
         Usuario usuarioSalvo = usuarioService.save(usuario);
         return usuarioSalvo;
     }
