@@ -33,11 +33,11 @@ public class MensagemController {
     @Autowired
     private MensagemService mensagemService;
     
-    // @PostMapping("/curtir/{idMensagem}/{idUsuario}")
-    // public ResponseEntity<Set<Usuario>> usuariosQueCurtiram(@PathVariable String idMensagem, @PathVariable String idUsuario) {  
-    //     Set<Usuario> usuariosCurtiram = mensagemService.gerarCurtidasUsuarios(idMensagem, idUsuario);
-    //     return ResponseEntity.ok(usuariosCurtiram);
-    // }
+    @PostMapping("/curtir/{idMensagem}/{idUsuario}")
+    public ResponseEntity<Set<Usuario>> curtirMensagem(@PathVariable String idMensagem, @PathVariable String idUsuario) throws PomboException {  
+        Set<Usuario> usuariosCurtiram = mensagemService.curtir(idMensagem, idUsuario);
+        return ResponseEntity.ok(usuariosCurtiram);
+    }
 
     @PostMapping("/relatorioMensagem/{idMensagem}")
     public ResponseEntity<MensagemRelatorioDTO> gerarRelatorio(@PathVariable String idMensagem) throws PomboException {
