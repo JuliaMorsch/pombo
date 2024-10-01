@@ -3,6 +3,7 @@ package com.example.pombo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.pombo.model.dto.DenunciaRelatorioDTO;
 import com.example.pombo.model.entity.Denuncia;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.model.enums.MotivoDenuncia;
@@ -30,6 +32,12 @@ public class DenunciaController {
 
     @Autowired
     private DenunciaService denunciaService;
+
+    @PostMapping("/relatorioDenuncia/{idMensagem}")
+    public ResponseEntity<DenunciaRelatorioDTO> gerarRelatorio(@PathVariable String idMensagem) {
+        DenunciaRelatorioDTO relatorioDTO = denunciaService.gerarRelatorio(idMensagem);
+        return ResponseEntity.ok(relatorioDTO);
+    }
 
     @Operation(summary = "Criar Denúncia", description = "Criar uma Denúncia referenciando usuário e mensagem.", responses = {
             @ApiResponse(responseCode = "200", description = "Denúncia criada com sucesso.",
@@ -54,8 +62,13 @@ public class DenunciaController {
     @Operation(summary = "Pesquisar Denúncia por usuário e mensagem", 
     description = "Busca uma Denúncia específica pelo seu ID.")
     @GetMapping(path = "/{idMensagem}/{idUsuario}")
-    public Denuncia buscar(@PathVariable String idMensagem, @PathVariable String idUsuario) {
-        return denunciaService.buscar(idMensagem, idUsuario);
+    public ResponseEntity<Denuncia> buscar(@PathVariable String idMensagem, @PathVariable String idUsuario) {
+        try {
+            Denuncia denuncia = denunciaService.buscar(idMensagem, idUsuario);
+            return ResponseEntity.ok(denuncia);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     @Operation(summary = "Listar todos as Denúncias", 

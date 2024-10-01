@@ -10,6 +10,9 @@ import com.example.pombo.model.filtro.DenunciaFiltro;
 import com.example.pombo.repository.DenunciaRepository;
 import com.example.pombo.repository.MensagemRepository;
 import com.example.pombo.repository.UsuarioRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -28,27 +31,50 @@ public class DenunciaService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    // Iniciando método para gerar relatório de denúncias
-    // public DenunciaRelatorioDTO gerarRelatorio(Denuncia denuncia){
-    //     DenunciaRelatorioDTO dto = new DenunciaRelatorioDTO();
-    //     dto.se
-    // }
+    public DenunciaRelatorioDTO gerarRelatorio(String idMensagem) {
+        Mensagem mensagem = mensagemRepository.findById(idMensagem).orElseThrow(() -> new EntityNotFoundException("Mensagem não encontrada."));
+        DenunciaRelatorioDTO dto = new DenunciaRelatorioDTO();
+        dto.setIdMensagem(mensagem.getId());
+        
+        List<Denuncia> denuncias = mensagem.getDenuncias();
+
+        int QntdDenunciasPendentes = 0;
+        int QntdDenunciasAnalisadas = 0;
+        if (denuncias != null && !denuncias.isEmpty()) {
+            for (Denuncia denuncia : denuncias) {
+                if (denuncia.isAnalisado()) {
+                    QntdDenunciasAnalisadas++;
+                } else {
+                    QntdDenunciasPendentes++;
+                }
+            }
+        } 
+        dto.setQntdDenuncias(denuncias.size());
+        dto.setQntdDenunciasAnalisadas(QntdDenunciasAnalisadas);
+        dto.setQntdDenunciasPendentes(QntdDenunciasPendentes);
+        
+        return dto;
+        }
+     
 
     public Denuncia denunciarMensagem(String idMensagem, String idUsuario, MotivoDenuncia motivo) {
         Mensagem mensagem = this.mensagemRepository.findById(idMensagem).get();
         Usuario usuario = this.usuarioRepository.findById(idUsuario).get();
-
         DenunciaPK denunciaPK = new DenunciaPK();
         denunciaPK.setIdMensagem(idMensagem);
         denunciaPK.setIdUsuario(idUsuario);
 
-        Denuncia denuncia = new Denuncia();
-        denuncia.setId(denunciaPK);
-        denuncia.setMensagem(mensagem);
-        denuncia.setUsuario(usuario);
-        denuncia.setMotivo(motivo);
-        denuncia.setAnalisado(false);
-        return denunciaRepository.save(denuncia);
+        if (denunciaRepository.existsById(denunciaPK)) {
+            throw new RuntimeException("Usuário já denunciou essa mensagem.");
+        } else {
+            Denuncia denuncia = new Denuncia();
+            denuncia.setId(denunciaPK);
+            denuncia.setMensagem(mensagem);
+            denuncia.setUsuario(usuario);
+            denuncia.setMotivo(motivo);
+            denuncia.setAnalisado(false);
+            return denunciaRepository.save(denuncia);
+        }
     }
 
     public List<Denuncia> listar() {
@@ -67,10 +93,10 @@ public class DenunciaService {
     }
 
     public Denuncia buscar(String idMensagem, String idUsuario) {
-        DenunciaPK pk = new DenunciaPK();
-        pk.setIdMensagem(idMensagem);
-        pk.setIdUsuario(idUsuario);
+        DenunciaPK denunciaPK = new DenunciaPK();
+        denunciaPK.setIdMensagem(idMensagem);
+        denunciaPK.setIdUsuario(idUsuario);
 
-        return denunciaRepository.findById(pk).get();
+        return denunciaRepository.findById(denunciaPK).orElseThrow(() -> new EntityNotFoundException("Denúncia não encontrada."));
     }
 }

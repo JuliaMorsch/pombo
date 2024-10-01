@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class DenunciaRelatorioDTO {
-
-    private String idUsuario;
-    private int qtdDenuncias;
-    private int qtdDenunciasPendentes;
-    private int qtdDenunciasAnalisadas;
-
+    
+    private String idMensagem;
+    private int qntdDenuncias;
+    private int qntdDenunciasPendentes;
+    private int qntdDenunciasAnalisadas;
 }

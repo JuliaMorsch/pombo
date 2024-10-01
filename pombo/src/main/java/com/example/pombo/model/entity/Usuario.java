@@ -12,9 +12,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+// import jakarta.persistence.JoinColumn;
+// import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import lombok.Data;
 
@@ -28,22 +27,23 @@ public class Usuario {
     private String id;
     private String nome;
     private String email;
-    @CPF
+    @CPF    
     private String cpf;
     private boolean isAdmin = false;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "usuario",    
-        cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<Mensagem> mensagem;
+    // @JsonBackReference
+    // @OneToMany(mappedBy = "usuario",    
+    //     cascade = CascadeType.ALL,orphanRemoval = true)
+    // private List<Mensagem> mensagem;
 
-    @ManyToMany
-    @JoinTable(
-            name = "curtidas",
-            joinColumns = @JoinColumn(name = "id_mensagem"),
-            inverseJoinColumns = @JoinColumn(name = "id_usuario")
-    )
-    private Set<Mensagem> mensagensCurtidas = new HashSet<>();
+    // Lista de mensagens curtidas do usuário
+    // @OneToMany
+    // @JoinTable(
+    //         name = "curtidas",
+    //         joinColumns = @JoinColumn(name = "id_mensagem"),
+    //         inverseJoinColumns = @JoinColumn(name = "id_usuario")
+    // )
+    // private Set<Mensagem> mensagensCurtidas = new HashSet<>();
     
 
 }

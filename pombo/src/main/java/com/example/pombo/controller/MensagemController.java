@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.pombo.exception.PomboException;
+import com.example.pombo.model.dto.MensagemRelatorioDTO;
 import com.example.pombo.model.entity.Mensagem;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.service.MensagemService;
-import com.example.pombo.service.UsuarioService;
-
+import java.util.Set;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -32,22 +32,33 @@ public class MensagemController {
 
     @Autowired
     private MensagemService mensagemService;
+    
+    // @PostMapping("/curtir/{idMensagem}/{idUsuario}")
+    // public ResponseEntity<Set<Usuario>> usuariosQueCurtiram(@PathVariable String idMensagem, @PathVariable String idUsuario) {  
+    //     Set<Usuario> usuariosCurtiram = mensagemService.gerarCurtidasUsuarios(idMensagem, idUsuario);
+    //     return ResponseEntity.ok(usuariosCurtiram);
+    // }
 
-    @Autowired
-    private UsuarioService usuarioService;
+    @PostMapping("/relatorioMensagem/{idMensagem}")
+    public ResponseEntity<MensagemRelatorioDTO> gerarRelatorio(@PathVariable String idMensagem) throws PomboException {
+        Mensagem mensagem = mensagemService.buscar(idMensagem);
+        MensagemRelatorioDTO dto = mensagemService.gerarRelatorio(mensagem);
+        return ResponseEntity.ok(dto);
+    }
 
     @Operation(summary = "Salvar Mensagem", description = "Adicionar uma nova Mensagem.", responses = {
             @ApiResponse(responseCode = "200", description = "Mensagem criado com sucesso.",
                 content = @Content(mediaType = "application/json",
                 schema = @Schema(implementation = Usuario.class))),
             @ApiResponse(responseCode = "400", description = "Erro na criação da Mensagem.",
-                content = @Content(mediaType = "application/json",
+                content =
+                 @Content(mediaType = "application/json",
                 examples = @ExampleObject(value = "{\"mensagem\": \"Erro de validação: campo X é obrigatório\", \"status\": 400}")))
     })
     @PostMapping
-    public ResponseEntity<Mensagem> save(@Valid @RequestBody Mensagem novaMensagem) throws PomboException {
-        novaMensagem = mensagemService.save(novaMensagem);
-        return ResponseEntity.ok(novaMensagem);
+    public ResponseEntity<Mensagem> save(@Valid @RequestBody Mensagem mensagem) throws PomboException {
+        mensagem = mensagemService.save(mensagem);
+        return ResponseEntity.ok(mensagem);
     }
 
     @Operation(summary = "Pesquisar Mensagem por ID", 
@@ -69,7 +80,7 @@ public class MensagemController {
     }
 
     @Operation(summary = "Bloquear Mensagem por ID", description = "Bloqueia uma Mensagem específica pelo seu ID.")
-    @PostMapping("/{id}/bloquear")
+    @PostMapping("/{mensagemId}/bloquear")
     public ResponseEntity<Void> bloquearMensagem(@PathVariable String mensagemId) {
         mensagemService.bloquearMensagem(mensagemId);
         return new ResponseEntity<>(HttpStatus.OK);
