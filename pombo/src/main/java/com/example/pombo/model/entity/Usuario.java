@@ -1,20 +1,10 @@
 package com.example.pombo.model.entity;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-// import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 
