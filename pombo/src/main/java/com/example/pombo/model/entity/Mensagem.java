@@ -1,7 +1,6 @@
 package com.example.pombo.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -46,12 +45,12 @@ public class Mensagem {
     private List<Denuncia> denuncias;
 
     // Lista de usuários que curtiram a mensagem
-    @ManyToMany
-    @JoinTable(name = "curtidas",
-        joinColumns = @JoinColumn(name = "id_usuario"),
-        inverseJoinColumns = @JoinColumn(name = "id_mensagem")
-    )
-    private Set<Usuario> usuariosCurtiram;
+    // @ManyToMany
+    // @JoinTable(name = "curtidas",
+    //     joinColumns = @JoinColumn(name = "id_mensagem"),
+    //     inverseJoinColumns = @JoinColumn(name = "id_usuario")
+    // )
+    // private Set<Usuario> usuariosCurtiram;
 
      @Override
     public boolean equals(Object o) {
