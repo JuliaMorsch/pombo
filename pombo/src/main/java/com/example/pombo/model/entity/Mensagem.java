@@ -51,7 +51,7 @@ public class Mensagem {
         joinColumns = @JoinColumn(name = "id_usuario"),
         inverseJoinColumns = @JoinColumn(name = "id_mensagem")
     )
-    private List<Usuario> usuariosCurtiram;
+    private Set<Usuario> usuariosCurtiram;
 
      @Override
     public boolean equals(Object o) {
