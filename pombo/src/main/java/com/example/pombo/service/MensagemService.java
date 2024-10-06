@@ -56,23 +56,23 @@ public class MensagemService {
         return mensagemRepository.findByUsuario(usuario);
     }
 
-    public Set<Usuario> curtir(String idMensagem, String idUsuario) throws PomboException {
-        Mensagem mensagem = mensagemRepository.findById(idMensagem)
-                .orElseThrow(() -> new PomboException("Mensagem não encontrada."));
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new PomboException("Usuário não encontrado."));
+    // public Set<Usuario> curtir(String idMensagem, String idUsuario) throws PomboException {
+    //     Mensagem mensagem = mensagemRepository.findById(idMensagem)
+    //             .orElseThrow(() -> new PomboException("Mensagem não encontrada."));
+    //     Usuario usuario = usuarioRepository.findById(idUsuario)
+    //             .orElseThrow(() -> new PomboException("Usuário não encontrado."));
 
-        if (mensagem.getUsuariosCurtiram().contains(usuario)) {
-            mensagem.getUsuariosCurtiram().remove(usuario);
-            mensagem.setLikes(mensagem.getLikes() - 1);
-        } else {
-            mensagem.getUsuariosCurtiram().add(usuario);
-            mensagem.setLikes(mensagem.getLikes() + 1);
-        }
-        mensagemRepository.save(mensagem);
+    //     if (mensagem.getUsuariosCurtiram().contains(usuario)) {
+    //         mensagem.getUsuariosCurtiram().remove(usuario);
+    //         mensagem.setLikes(mensagem.getLikes() - 1);
+    //     } else {
+    //         mensagem.getUsuariosCurtiram().add(usuario);
+    //         mensagem.setLikes(mensagem.getLikes() + 1);
+    //     }
+    //     mensagemRepository.save(mensagem);
         
-        return mensagem.getUsuariosCurtiram();
-    }
+    //     return mensagem.getUsuariosCurtiram();
+    // }
 
     public void bloquearMensagem(String mensagemId) {
         Mensagem mensagem = mensagemRepository.findById(mensagemId)
