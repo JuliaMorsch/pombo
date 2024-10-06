@@ -47,12 +47,11 @@ public class Mensagem {
 
     // Lista de usuários que curtiram a mensagem
     @ManyToMany
-    @JoinTable(
-        name = "curtidas",
-        joinColumns = @JoinColumn(name = "id_mensagem"),
-        inverseJoinColumns = @JoinColumn(name = "id_usuario")
+    @JoinTable(name = "curtidas",
+        joinColumns = @JoinColumn(name = "id_usuario"),
+        inverseJoinColumns = @JoinColumn(name = "id_mensagem")
     )
-    private Set<Usuario> usuariosCurtiram = new HashSet<>();
+    private List<Usuario> usuariosCurtiram;
 
      @Override
     public boolean equals(Object o) {
@@ -66,4 +65,5 @@ public class Mensagem {
     public int hashCode() {
         return Objects.hash(id, texto, usuario, dataCriacao, likes, bloqueado);
     }
+
 }
