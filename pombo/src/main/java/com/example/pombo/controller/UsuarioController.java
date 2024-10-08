@@ -31,12 +31,6 @@ public class UsuarioController {
     @Autowired
     private UsuarioService usuarioService;
 
-    //   @PostMapping("/curtir/{idMensagem}/{idUsuario}")
-    // public ResponseEntity<Set<Mensagem>> mensagensCurtidas(@PathVariable String idMensagem, @PathVariable String idUsuario) {  
-    //     Set<Mensagem> mensagensCurtidas = usuarioService.consultarCurtidas(idMensagem, idUsuario);
-    //     return ResponseEntity.ok(mensagensCurtidas);
-    // }
-
     @Operation(summary = "Salvar Usuário", description = "Adicionar um novo Usuário.", responses = {
             @ApiResponse(responseCode = "200", description = "Usuário criado com sucesso.",
                 content = @Content(mediaType = "application/json",
