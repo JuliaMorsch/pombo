@@ -79,12 +79,19 @@ public class MensagemController {
         return new ResponseEntity<>(mensagens, HttpStatus.OK);
     }
 
-    @Operation(summary = "Bloquear Mensagem por ID", description = "Bloqueia uma Mensagem específica pelo seu ID.")
-    @PostMapping("/{mensagemId}/bloquear")
-    public ResponseEntity<Void> bloquearMensagem(@PathVariable String mensagemId) {
-        mensagemService.bloquearMensagem(mensagemId);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
+    // @Operation(summary = "Bloquear Mensagem por ID", description = "Bloqueia uma Mensagem específica pelo seu ID.")
+    // @PostMapping("/{mensagemId}/bloquear")
+    // public ResponseEntity<Void> bloquearMensagem(@PathVariable String mensagemId) {
+    //     mensagemService.bloquearMensagem(mensagemId);
+    //     return new ResponseEntity<>(HttpStatus.OK);
+    // }
+
+    // @Operation(summary = "Bloquear Mensagem por ID", description = "Bloqueia uma Mensagem específica pelo seu ID.")
+    // @PostMapping("/{mensagemId}/{idUsuario}/bloquear")
+    // public ResponseEntity<Void> bloquearMensagem2(@PathVariable String mensagemId, @PathVariable String idUsuario) throws PomboException {
+    //     mensagemService.bloquearMensagem(mensagemId, idUsuario);
+    //     return new ResponseEntity<>(HttpStatus.OK);
+    // }
 
     @Operation(summary = "Deletar Mensagem por ID", description = "Remove uma Mensagem específica pelo seu ID.")
     @DeleteMapping("/{id}")
