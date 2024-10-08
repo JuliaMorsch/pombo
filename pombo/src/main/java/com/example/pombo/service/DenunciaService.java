@@ -1,5 +1,11 @@
 package com.example.pombo.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
 import com.example.pombo.model.dto.DenunciaRelatorioDTO;
 import com.example.pombo.model.entity.Denuncia;
 import com.example.pombo.model.entity.DenunciaPK;
@@ -12,12 +18,6 @@ import com.example.pombo.repository.MensagemRepository;
 import com.example.pombo.repository.UsuarioRepository;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DenunciaService {
