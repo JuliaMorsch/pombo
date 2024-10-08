@@ -1,7 +1,6 @@
 package com.example.pombo.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -45,25 +44,11 @@ public class Mensagem {
     @OneToMany(mappedBy = "mensagem")
     private List<Denuncia> denuncias;
 
-    // Lista de usuários que curtiram a mensagem
     @ManyToMany
     @JoinTable(name = "curtidas",
         joinColumns = @JoinColumn(name = "id_usuario"),
         inverseJoinColumns = @JoinColumn(name = "id_mensagem")
     )
-    private List<Usuario> usuariosCurtiram;
-
-     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Mensagem mensagem = (Mensagem) o;
-        return likes == mensagem.likes && bloqueado == mensagem.bloqueado && Objects.equals(id, mensagem.id) && Objects.equals(texto, mensagem.texto) && Objects.equals(usuario, mensagem.usuario) && Objects.equals(dataCriacao, mensagem.dataCriacao);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, texto, usuario, dataCriacao, likes, bloqueado);
-    }
+    private Set<Usuario> usuariosCurtiram;
 
 }
