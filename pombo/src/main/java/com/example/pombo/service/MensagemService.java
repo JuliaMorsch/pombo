@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.pombo.exception.PomboException;
 import com.example.pombo.model.dto.MensagemRelatorioDTO;
+import com.example.pombo.model.entity.Denuncia;
 import com.example.pombo.model.entity.Mensagem;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.repository.MensagemRepository;
@@ -70,18 +71,70 @@ public class MensagemService {
             mensagem.setLikes(mensagem.getLikes() + 1);
         }
         mensagemRepository.save(mensagem);
-        
+
         return mensagem.getUsuariosCurtiram();
     }
 
-    public void bloquearMensagem(String mensagemId) {
-        Mensagem mensagem = mensagemRepository.findById(mensagemId)
-                .orElseThrow(() -> new RuntimeException("Mensagem não encontrada."));
-        mensagem.setBloqueado(false);
-        mensagemRepository.save(mensagem);
-    }
+    // public void bloquearMensagem(String mensagemId) {
+    //     Mensagem mensagem = mensagemRepository.findById(mensagemId)
+    //             .orElseThrow(() -> new RuntimeException("Mensagem não encontrada."));
+    //     mensagem.setBloqueado(true);
+    //     mensagemRepository.save(mensagem);
+    // }
+
+    // public String bloquearMensagem(String idMensagem, String idUsuario) throws
+    // PomboException {
+    // vericarPerfilAcesso(idUsuario);
+
+    // String resultado;
+    // Mensagem mensagem = mensagemRepository.findById(idMensagem).get();
+    // if (verificarSituacaoMensagem(idMensagem)) {
+    // mensagem.setBloqueado(true);
+    // mensagem.setTexto("**Esse texto está bloqueado.**");
+    // resultado = "Mensagem bloqueada!";
+    // } else {
+    // throw new PomboException("A mensagem não foi bloqueada");
+    // }
+
+    // mensagemRepository.save(mensagem);
+
+    // return resultado;
+    // }
+
+    // public void verificarSituacaoMensagem(String idMensagem) throws PomboException {
+
+    //     Mensagem mensagem = mensagemRepository.findById(idMensagem)
+    //             .orElseThrow(() -> new PomboException("Mensagem não encontrada."));
+
+    //     List<Denuncia> denuncias = mensagem.getDenuncias();
+
+    //     for (Denuncia denuncia : denuncias) {
+    //         if (denuncia.isAnalisado() == true) {
+    //             break;
+    //         } else {
+    //             throw new PomboException(
+    //                     "Para bloquear uma mensagem, ela precisar conter no mínimo uma denúncia analisada.");
+    //         }
+    //     }
+    // }
+
+    // return analisada;
+    // }
 
     public void delete(String id) {
         mensagemRepository.deleteById(id);
     }
+
+    // private void vericarPerfilAcesso(String idUsuario) throws PomboException {
+
+    // boolean verificado = false;
+
+    // Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new
+    // PomboException("Usuário não encontrado."));
+
+    // if(usuario.isAdmin() == true) {
+    // verificado = true;
+    // }
+    // }
+
 }
