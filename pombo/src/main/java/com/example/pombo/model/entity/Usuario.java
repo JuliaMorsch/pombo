@@ -34,10 +34,10 @@ public class Usuario {
     @NotBlank(message = "CPF não pode ser vazio.")
     @CPF    
     private String cpf;
-    private boolean isAdmin = false;
+    private boolean isAdmin;
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagem;       
+    private List<Mensagem> mensagens;       
 
 }
