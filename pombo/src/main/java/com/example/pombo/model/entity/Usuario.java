@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -37,6 +38,6 @@ public class Usuario {
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagem;    
+    private List<Mensagem> mensagem;       
 
 }
