@@ -35,7 +35,7 @@ public class Mensagem {
     private int likes = 0;
     @CreationTimestamp
     private LocalDateTime dataCriacao;
-    private boolean bloqueado = false;
+    private boolean bloqueado;
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
