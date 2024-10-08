@@ -7,13 +7,12 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 
@@ -25,8 +24,10 @@ public class Usuario {
     @UuidGenerator
     private String id;
 
+    @Size(min = 3, message = "O campo nome deve ter no minimo 3 caracteres.")
     private String nome;
-
+    
+    @Email
     private String email;
     
     @NotBlank(message = "CPF não pode ser vazio.")
@@ -36,9 +37,6 @@ public class Usuario {
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagem;
-
-    // Lista de mensagens curtidas do usuário
-    
+    private List<Mensagem> mensagem;    
 
 }
