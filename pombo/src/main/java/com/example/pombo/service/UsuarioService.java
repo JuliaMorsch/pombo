@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.pombo.exception.PomboException;
 import com.example.pombo.model.entity.Usuario;
-import com.example.pombo.repository.MensagemRepository;
 import com.example.pombo.repository.UsuarioRepository;
 
 @Service
