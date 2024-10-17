@@ -1,5 +1,6 @@
 package com.example.pombo.repository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -30,35 +31,40 @@ public class MensagemRepositoryTest {
     // Carrega lista de denuncias e curtidas da mensagem
     @BeforeEach
     private void setUp() {
-    DenunciaPK denunciaPK = new DenunciaPK();
+    // DenunciaPK denunciaPK = new DenunciaPK();
 
 
-    List<Denuncia> denuncias = new ArrayList<>();
+    // List<Denuncia> denuncias = new ArrayList<>();
     
-    Mensagem mensagem = new Mensagem();
-    for(int i = 0; i <= 5; i++){
-    mensagem.setId(UUID.randomUUID().toString());
-    mensagem.setTexto("Testando");
-    }
+    // Mensagem mensagem = new Mensagem();
+    // for(int i = 0; i <= 5; i++){
+    // mensagem.setId(UUID.randomUUID().toString());
+    // mensagem.setTexto("Testando");
+    // }
 
-    for(int i = 0; i <= 5; i++){
     Usuario usuario = new Usuario();
-    usuario.setNome("Teste" + i);
-    usuario.setEmail("teste@teste" + i + ".com");
-    // usuario.setCpf("38136211469");
+    usuario.setNome("Teste");
+    usuario.setEmail("teste@teste.com");
+    usuario.setCpf("215.832.220-90");
+    usuario.setAdmin(false);
+    usuario.setMensagens(null);
+    usuario.setCurtidas(null);
     }
 
-    Denuncia denuncia = new Denuncia();
+    // Denuncia denuncia = new Denuncia();
     // denuncia.set
     // setar elementos na lista de denuncias - compara com a tabela de denuncias
 
-    }
+    // }
 
     @Test
     public void testaTodosOsDadosCorretos() {
         Mensagem mensagem = new Mensagem();
         mensagem.setTexto("Esse é um texto de teste");
         mensagem.setLikes(10);
-        // mensagem.setDenuncias();
+        mensagem.setDataCriacao(LocalDateTime.now());
+        mensagem.setDenuncias(null);
+        mensagem.setBloqueado(false);
+        // mensagem.setUsuario(usuario);
     }
 }
