@@ -1,6 +1,7 @@
 package com.example.pombo.model.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
@@ -38,6 +39,12 @@ public class Usuario {
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagens;       
+    private List<Mensagem> mensagens;  
+
+
+    @ManyToMany(mappedBy = "usuariosCurtiram")
+    Set<Mensagem> curtidas;
+    
+    
 
 }
