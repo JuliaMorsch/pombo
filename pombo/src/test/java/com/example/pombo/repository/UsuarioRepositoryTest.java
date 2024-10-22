@@ -22,10 +22,53 @@ public class UsuarioRepositoryTest {
         usuario.setCpf("053.843.920-37");
         usuario.setAdmin(false);
         usuario.setMensagens(null);
-        usuario.setCurtidas(null);        
 
         usuarioRepository.save(usuario);   
     }
 
-    
+    @Test
+    public void testarNomeInvalidoMenorQue2() {
+        Usuario usuario = new Usuario();
+        usuario.setNome("N");
+        usuario.setEmail("emailteste@teste.com");
+        usuario.setCpf("966.326.170-69"); 
+        usuario.isAdmin();
+        
+        usuarioRepository.save(usuario);
+    }
+
+    @Test
+    public void testarNomeInvalidoNulo() {
+        Usuario usuario = new Usuario();
+        usuario.setNome(null);
+        usuario.setEmail("teste@teste.com");
+        usuario.setCpf("966.326.170-69");
+        usuario.isAdmin();
+
+        usuarioRepository.save(usuario);
+    }
+
+    @Test
+    public void testarEmailInvalido() {
+        Usuario usuario = new Usuario();
+        usuario.setNome("Nome para teste");
+        usuario.setEmail("emailteste.com");
+        usuario.setCpf("966.326.170-69");
+        usuario.isAdmin();
+
+        usuarioRepository.save(usuario);
+    }
+
+    @Test
+    public void testarCpfInvalido() {
+        Usuario usuario = new Usuario();
+        usuario.setNome("Nome para teste");
+        usuario.setEmail("email@email.com");
+        usuario.setCpf("11111111111");
+        usuario.isAdmin();
+
+        usuarioRepository.save(usuario);
+    }
 }
+
+
