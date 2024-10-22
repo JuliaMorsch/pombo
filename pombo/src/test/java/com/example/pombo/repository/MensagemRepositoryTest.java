@@ -48,7 +48,6 @@ public class MensagemRepositoryTest {
     usuario.setCpf("215.832.220-90");
     usuario.setAdmin(false);
     usuario.setMensagens(null);
-    usuario.setCurtidas(null);
     }
 
     // Denuncia denuncia = new Denuncia();
