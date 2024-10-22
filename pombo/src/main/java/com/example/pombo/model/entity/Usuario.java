@@ -25,11 +25,12 @@ public class Usuario {
     @Id
     @UuidGenerator
     private String id;
-
+    
+    @NotBlank(message = "Nome não pode ser vazio.")
     @Size(min = 3, message = "O campo nome deve ter no minimo 3 caracteres.")
     private String nome;
     
-    @Email
+    @Email(message = "Email inválido.")
     private String email;
     
     @NotBlank(message = "CPF não pode ser vazio.")
@@ -39,12 +40,6 @@ public class Usuario {
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagens;  
-
-
-    @ManyToMany(mappedBy = "usuariosCurtiram")
-    Set<Mensagem> curtidas;
-    
-    
+    private List<Mensagem> mensagens;      
 
 }
