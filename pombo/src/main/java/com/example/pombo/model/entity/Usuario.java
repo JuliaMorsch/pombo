@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -32,6 +33,10 @@ public class Usuario {
     
     @Email(message = "Email inválido.")
     private String email;
+
+    @NotBlank(message = "Senha é obrigatória.")
+    @Column(length = 4000)   
+    private String senha;
     
     @NotBlank(message = "CPF não pode ser vazio.")
     @CPF    
