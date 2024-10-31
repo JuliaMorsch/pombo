@@ -21,18 +21,36 @@ public class UsuarioRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        for (int i = 0; i < 10; i++) {
             Usuario usuario = new Usuario();
             usuario.setId(UUID.randomUUID().toString());
-            usuario.setNome("Teste" + i);
-            usuario.setEmail("email" + i + "@teste.com");
-            usuario.setCpf(gerarCpf());
+            usuario.setNome("Teste");
+            usuario.setEmail("email@teste.com");
+            usuario.setCpf("377.702.540-27");
+            usuario.setSenha("senha");
             usuario.setAdmin(false);
 
             usuarioRepository.save(usuario);
 
+            Usuario usuario2 = new Usuario();
+            usuario.setId(UUID.randomUUID().toString());
+            usuario.setNome("Teste");
+            usuario.setEmail("email2@teste.com");
+            usuario.setCpf("802.458.070-55");
+            usuario.setSenha("senha");
+            usuario.setAdmin(false);
+
+            usuarioRepository.save(usuario);
+            Usuario usuario3 = new Usuario();
+            usuario.setId(UUID.randomUUID().toString());
+            usuario.setNome("Teste");
+            usuario.setEmail("email3@teste.com");
+            usuario.setCpf("367.169.320-70");
+            usuario.setSenha("senha");
+            usuario.setAdmin(false);
+
+            usuarioRepository.save(usuario);
         }
-    }
+    
 
     @AfterEach
     public void tearDown(){
@@ -97,7 +115,7 @@ public class UsuarioRepositoryTest {
 
     private String gerarCpf() {
         Random random = new Random();
-        int[] cpf = new int[9];
+        int[] cpf = new int[11];
 
         // Gera os 9 primeiro digitos do cpf
         for (int i = 0; i < 9; i++) {

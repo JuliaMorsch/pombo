@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -21,7 +22,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Usuario {
+public class Usuario implements UserDetails {
     
     @Id
     @UuidGenerator
@@ -47,4 +48,13 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario")
     private List<Mensagem> mensagens;      
 
+    @Override 
+    public String getPassword() {
+        return this.senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
 }
