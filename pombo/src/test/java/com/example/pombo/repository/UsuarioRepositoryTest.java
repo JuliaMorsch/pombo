@@ -27,7 +27,6 @@ public class UsuarioRepositoryTest {
             usuario.setEmail("email@teste.com");
             usuario.setCpf("377.702.540-27");
             usuario.setSenha("senha");
-            usuario.setAdmin(false);
 
             usuarioRepository.save(usuario);
 
@@ -37,7 +36,6 @@ public class UsuarioRepositoryTest {
             usuario.setEmail("email2@teste.com");
             usuario.setCpf("802.458.070-55");
             usuario.setSenha("senha");
-            usuario.setAdmin(false);
 
             usuarioRepository.save(usuario);
             Usuario usuario3 = new Usuario();
@@ -46,7 +44,6 @@ public class UsuarioRepositoryTest {
             usuario.setEmail("email3@teste.com");
             usuario.setCpf("367.169.320-70");
             usuario.setSenha("senha");
-            usuario.setAdmin(false);
 
             usuarioRepository.save(usuario);
         }
@@ -63,7 +60,6 @@ public class UsuarioRepositoryTest {
         usuario.setNome("Nome para teste");
         usuario.setEmail("testaUsuario@gmail.com");
         usuario.setCpf("053.843.920-37");
-        usuario.setAdmin(false);
         usuario.setMensagens(null);
 
         usuarioRepository.save(usuario);
@@ -75,7 +71,6 @@ public class UsuarioRepositoryTest {
         usuario.setNome("N");
         usuario.setEmail("emailteste@teste.com");
         usuario.setCpf("966.326.170-69");
-        usuario.isAdmin();
 
         usuarioRepository.save(usuario);
     }
@@ -86,7 +81,6 @@ public class UsuarioRepositoryTest {
         usuario.setNome(null);
         usuario.setEmail("teste@teste.com");
         usuario.setCpf("966.326.170-69");
-        usuario.setAdmin(false);
 
         usuarioRepository.save(usuario);
     }
@@ -97,7 +91,6 @@ public class UsuarioRepositoryTest {
         usuario.setNome("Nome para teste");
         usuario.setEmail("emailteste.com");
         usuario.setCpf("966.326.170-69");
-        usuario.setAdmin(false);
 
         usuarioRepository.save(usuario);
     }
@@ -108,7 +101,6 @@ public class UsuarioRepositoryTest {
         usuario.setNome("Nome para teste");
         usuario.setEmail("email@email.com");
         usuario.setCpf("11111111111");
-        usuario.setAdmin(false);
 
         usuarioRepository.save(usuario);
     }
