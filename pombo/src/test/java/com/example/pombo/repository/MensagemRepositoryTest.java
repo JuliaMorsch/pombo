@@ -46,7 +46,6 @@ public class MensagemRepositoryTest {
     usuario.setNome("Teste");
     usuario.setEmail("teste@teste.com");
     usuario.setCpf("215.832.220-90");
-    usuario.setAdmin(false);
     usuario.setMensagens(null);
     }
 
