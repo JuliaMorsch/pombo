@@ -8,8 +8,10 @@ import com.example.pombo.exception.PomboException;
 import com.example.pombo.model.entity.Usuario;
 import com.example.pombo.repository.UsuarioRepository;
 import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.stereotype.Service;
 
 
+@Service
 public class AuthenticationService {
 
     private final JwtService jwtService;
