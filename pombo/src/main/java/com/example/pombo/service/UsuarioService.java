@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.pombo.exception.PomboException;
 import com.example.pombo.model.entity.Usuario;
@@ -17,6 +18,20 @@ public class UsuarioService implements UserDetailsService{
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ImagemService imagemService;
+
+    public void salvarImagemPerfil(MultipartFile imagem, String id) throws PomboException {
+        Usuario usuarioComImagem = usuarioRepository.findById(id).orElseThrow(() -> new PomboException("Usuário não encontrado."));
+
+        String imagemBase64 = imagemService.processarImagem(imagem);
+
+        usuarioComImagem.setImagemEmBase64(imagemBase64);
+
+        usuarioRepository.save(usuarioComImagem);
+
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
