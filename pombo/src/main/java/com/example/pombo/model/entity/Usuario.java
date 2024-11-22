@@ -51,7 +51,10 @@ public class Usuario implements UserDetails {
 
     @JsonBackReference
     @OneToMany(mappedBy = "usuario")
-    private List<Mensagem> mensagens;      
+    private List<Mensagem> mensagens;   
+    
+    @Column(columnDefinition = "LONGTEXT")
+    private String imagemEmBase64;
 
     @Override 
     public String getPassword() {
