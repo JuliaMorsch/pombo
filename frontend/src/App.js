@@ -1,19 +1,11 @@
 import './App.css';
+import Header from './components/Header/Header.js'
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          Vamo fazer funcionar essa bagaça
-        </p>
-        <a
-          className="App-link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Aplicação Pombo
-        </a>
+        <Header />
       </header>
     </div>
   );
